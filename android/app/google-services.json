@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "734363613362",
+    "project_id": "test-a0b2a",
+    "storage_bucket": "test-a0b2a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734363613362:android:781bf4338e0092e85d31ab",
+        "android_client_info": {
+          "package_name": "com.locom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734363613362-684jc6p2d56g8utrdmj8dn9bf1qpo185.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.locom",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "734363613362-err4i1a9lucv008ke3n8643n0lisq621.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuySlx2Vl3egyPKFvK9MUQ8JekhkB7VJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734363613362-err4i1a9lucv008ke3n8643n0lisq621.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
