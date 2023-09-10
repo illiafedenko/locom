@@ -14,6 +14,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import {fetchOpenAIContent} from '../api';
 import {GOOGLE_BUSINESS_SCOPE, WEB_CLIENT_ID} from '@env';
 
+console.log(WEB_CLIENT_ID)
 GoogleSignin.configure({
   webClientId: WEB_CLIENT_ID,
   scopes: [GOOGLE_BUSINESS_SCOPE],
@@ -34,7 +35,9 @@ const ProfileScreen = () => {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
       const tokens = await GoogleSignin.getTokens();
-      // fetchBusinessInfo(tokens.accessToken);
+      let accountID = await getAccount(tokens.accessToken);
+      let locationID = await getLocation(tokens.accessToken);
+      fetchBusinessInfo(tokens.accessToken, accountID, locationID);
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('User cancelled the sign-in flow');
@@ -52,6 +55,42 @@ const ProfileScreen = () => {
     try {
       await GoogleSignin.revokeAccess();
     } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getAccount = async (accessToken) => {
+    try {
+      const response = await fetch(
+        `https://mybusinessaccountmanagement.googleapis.com/v1/accounts`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            ContentType: 'application/json',
+          },
+        },
+      );
+      return response.id;
+    } catch (error) {
+      // Handle error
+      console.error(error);
+    }
+  };
+
+  const getLocation = async (accessToken) => {
+    try {
+      const response = await fetch(
+        `https://mybusinessaccountmanagement.googleapis.com/v1/locations`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            ContentType: 'application/json',
+          },
+        },
+      );
+      return response.id;
+    } catch (error) {
+      // Handle error
       console.error(error);
     }
   };
@@ -98,7 +137,7 @@ const ProfileScreen = () => {
         <ProfileIcon style={{marginRight: 11}} />
         <AppText>Google Business Profile</AppText>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.card}>
+      <TouchableOpacity style={styles.card} onPress={revokeAccess}>
         <ProfileIcon style={{marginRight: 11}} />
         <AppText>Team Members</AppText>
       </TouchableOpacity>
